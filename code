@@ -1,0 +1,123 @@
+print("Nice to metting you")
+print("Welcome to boss super bazar")
+listold=[0,1,2,3,4,5,6,7,8,9]
+listcat=["Apparels","Electronics","Eatables"]
+dict1={0:"Tshirt",1:"Trousers",2:"Towel",3:"Smartpohne",4:"Tablet",5:"Laptop",6:"Eggs",7:"Chocolate",8:"juice",9:"Corn-Flakes"}
+ #here the format is not correct i wrote like this 
+ #because for visibility in pdf ,please wrote in single line for evaluation
+dict2={0:400,1:500,2:200,3:15000,4:25000,5:60000,6:6,7:15,8:80,9:40}
+dict3={0:"Apparels",1:"Apparels",2:"Apparels",3:"Electronics",4:"Electronics",5:"Electronics",6:"Eatables",7:"Eatables",8:"Eatables",9:"Eatables"}
+ #here the format is not correct i wrote like this 
+ #because for visibility in pdf ,please wrote in single line for evaluation
+print("Available products and with their repective codes are",sorted(dict1.items()))
+while(1) :
+    str1=input("Would you want to buy in bulk or not?(say y or n):")
+    l1=['y',"Y","N","n"]
+    if str1 in l1 :
+      if str1=='y' or str1=='Y' :
+        str1='yes'
+      else:
+        str1="no"
+      break
+if str1=="no" :
+    def discount(list1,list2):
+      if list2[0]>=2000 :
+          list2[0]=list2[0] - (0.1 * list2[0])
+      elif list2[1]>=25000 :
+          list2[1]=list2[1] - (0.1 * list2[1])
+      elif list2[-1]>=2000 :
+          list2[-1]=list2[-1] - (0.1 * list2[-1])
+      print(" After discounts category prices are")
+      print("Category Wise\t Price")
+      
+      for n in range(len(list2)):
+          print(" {} \t {}".format(listcat[n],list2[n]))
+      print("Total price =",sum(list2))
+    def catcost(list1) :
+      sum1=0
+      sum2=0
+      sum3=0
+      for l in list1:
+          if dict3[l]== listcat[0] :
+              sum1=sum1+dict2[l]
+          elif dict3[l] == listcat[1] :
+              sum2=sum2+ dict2[l]
+          else:
+              sum3=sum3+dict2[l]
+      list2=[sum1,sum2,sum3]
+      print("Category Wise\t Price")
+ 
+      for m in range(len(list2)):
+          print(" {} \t {}".format(listcat[m],list2[m]))
+      discount(list1,list2)
+    def ordersumm():
+        print("Enter items you wish to buy")
+        list1=input("Enter the item codes(0-9) (space-separated): ").split()
+        list1=[int(i) for i in list1]
+        for j in list1:
+            if j not in listold :
+                print("{} is an invalid product code so please enter the codes in between 0-9(both are inclusive)".format(j))
+            list1.remove(j)
+        list1.sort()
+        print(" order summary ")
+        print("Item Code\tProduct code\t Price\t category")
+        for k in list1:
+            print(" {} \t{} \t{} \t {} \t".format(k,dict1[k],dict2[k],dict3[k]))
+        catcost(list1)
+    ordersumm()
+elif str1=="yes":
+    pcode=[]
+    pquan=[]
+    while(2):
+        li1=input("Enter the code (0-9) and quantity(separated by space) or leave blank to stop: ").split()
+        li1=[int(v) for v in li1]
+        if len(li1)==0 :
+            print("Your order has been finalised")
+            break
+        elif (li1[0] in listold) and (li1[1]>0) :
+            print("You added {} {}".format(li1[1],dict1[li1[0]]))
+            pcode.append(li1[0])
+            pquan.append(li1[1])
+        elif (li1[0] not in listold) or (li1[1]<0):
+            print("Invalid input. try again")
+    dict4={}
+    for l in range(len(pcode)):
+        dict4.update({pcode[l]:dict2[pcode[l]]*pquan[l]})
+    print(" order summary ")
+    print("Product Code\t item name\t quantity \t price \t category ")
+    pcode.sort()
+    for k in range(len(pcode)):
+        print(" {} \t {} \t {} \t {} \t {} ".format(pcode[k],dict1[pcode[k]],pquan[k],dict4[pcode[k]],dict3[pcode[k]]))
+    
+    #here the format is not correct i wrote like this 
+    #because for visibility in pdf
+    #,please wrote in single line for evaluation
+    sum1=0
+    sum2=0
+    sum3=0
+    print(type(pcode[0]))
+    print(type(pquan[0]))
+    print(sorted(dict4.items()))
+    for m in pcode:
+        if dict3[m]== listcat[0] :
+            sum1=sum1+dict4[m]
+        elif dict3[m] == listcat[1] :
+            sum2=sum2 + dict4[m]
+        else:
+            sum3=sum3+dict4[m]
+    list2=[sum1,sum2,sum3]
+    print("Category Wise\t Price") 
+    for m in range(len(list2)):
+        print(" {} \t {}".format(listcat[m],list2[m]))
+    #discount section
+    if list2[0]>=2000 :
+        list2[0]=list2[0] - (0.1 * list2[0])
+    elif list2[1]>=25000 :
+        list2[1]=list2[1] - (0.1 * list2[1])
+    elif list2[-1]>=2000 :
+        list2[-1]=list2[-1] - (0.1 * list2[-1])
+    print(" After discounts category prices are")
+    print("Category Wise\t Price") 
+    for n in range(len(list2)):
+      print(" {} \t {}".format(listcat[n],list2[n]))
+    print("Total price =",sum(list2))
